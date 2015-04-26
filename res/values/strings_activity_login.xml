@@ -1,0 +1,18 @@
+<resources>
+
+    <string name="title_activity_login">登录</string>
+
+    <!-- Strings related to login -->
+    <string name="action_cancel">取消</string>
+    <string name="action_register">注册</string>
+    <string name="prompt_mobile">手机号码</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="error_invalid_mobile">输入的手机号码不可用</string>
+    <string name="error_invalid_password">密码输入太短,至少4位</string>
+    <string name="error_incorrect_password">密码不正确</string>
+    <string name="error_field_required">必输</string>
+
+    <color name="white">#fff</color>
+</resources>
