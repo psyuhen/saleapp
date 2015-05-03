@@ -1,0 +1,144 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <!-- Login progress -->
+
+    <ProgressBar
+        android:id="@+id/register_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <TableLayout
+        android:id="@+id/tl_register"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- 显示注册按钮和标题信息 -->
+
+        <RelativeLayout
+            android:id="@+id/login_title"
+            android:layout_width="fill_parent"
+            android:layout_height="48.0dip"
+            android:background="@drawable/bg" >
+
+            <TextView
+                android:id="@+id/register_back"
+                android:layout_width="wrap_content"
+                android:layout_height="35.0dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8.0dip"
+                android:gravity="center"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:text="@string/register_back"
+                android:textColor="#ffffffff"
+                android:textSize="14.0dip"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/register_center_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/register_center_text"
+                android:textColor="#ffffffff"
+                android:textSize="18.0dip"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@string/tv_mobile" />
+
+            <EditText
+                android:id="@+id/et_mobile"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:hint="@string/prompt_mobile"
+                android:inputType="number"
+                android:singleLine="true" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@string/tv_password" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:hint="@string/prompt_password"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@string/tv_shop_name" />
+
+            <EditText
+                android:id="@+id/et_shop_name"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:hint="@string/prompt_shop_name"
+                android:inputType="text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_adress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@string/tv_address" />
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:hint="@string/prompt_address"
+                android:inputType="text" />
+        </TableRow>
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="200.0dip"
+            android:layout_height="42.0dip"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12.0dip"
+            android:layout_marginTop="12.0dip"
+            android:background="@drawable/bg"
+            android:text="@string/btn_text"
+            android:textColor="@color/white"
+            android:textSize="18.0dip"
+            android:textStyle="bold" />
+    </TableLayout>
+
+</LinearLayout>

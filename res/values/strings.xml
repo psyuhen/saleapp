@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">超家伙（卖家版）</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">设置</string>
+    <string name="app_main">首页</string>
 
 </resources>

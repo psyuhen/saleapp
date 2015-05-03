@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="title_activity_register">注册</string>
+    
+    <string name="tv_mobile">手机号码</string>
+    <string name="tv_password">密码</string>
+    <string name="tv_shop_name">商家名称</string>
+    <string name="tv_address">商家详细地址</string>
+    <string name="btn_text">注册</string>
+    <string name="register_center_text">卖家注册</string>
+    <string name="register_back">返回</string>
+    
+    <string name="prompt_shop_name">商家名称</string>
+    <string name="prompt_address">商家详细地址</string>
+    
+</resources>

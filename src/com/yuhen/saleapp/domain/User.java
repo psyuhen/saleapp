@@ -5,79 +5,100 @@ package com.yuhen.saleapp.domain;
 
 /**
  * 用户信息Domain
+ * 
  * @author ps
- *
+ * 
  */
 public class User {
-	private int userId;
+	private int user_id;
 	private String name;
 	private String password;
 	private String mobile;
 	private String address;
-	private String shopName;
-	private String createTime;
-	private String userType;
+	private String shop_name;
+	private String create_time;
+	private String user_type;
 	private String qq;
-	private String weChat;
-	public int getUserId() {
-		return userId;
+	private String we_chat;
+
+	public int getUser_id() {
+		return user_id;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getMobile() {
 		return mobile;
 	}
+
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getShopName() {
-		return shopName;
+
+	public String getShop_name() {
+		return shop_name;
 	}
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
+
+	public void setShop_name(String shop_name) {
+		this.shop_name = shop_name;
 	}
-	public String getCreateTime() {
-		return createTime;
+
+	public String getCreate_time() {
+		return create_time;
 	}
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
+
+	public void setCreate_time(String create_time) {
+		this.create_time = create_time;
 	}
-	public String getUserType() {
-		return userType;
+
+	public String getUser_type() {
+		return user_type;
 	}
-	public void setUserType(String userType) {
-		this.userType = userType;
+
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
 	}
+
 	public String getQq() {
 		return qq;
 	}
+
 	public void setQq(String qq) {
 		this.qq = qq;
 	}
-	public String getWeChat() {
-		return weChat;
+
+	public String getWe_chat() {
+		return we_chat;
 	}
-	public void setWeChat(String weChat) {
-		this.weChat = weChat;
+
+	public void setWe_chat(String we_chat) {
+		this.we_chat = we_chat;
 	}
-	
+
 }

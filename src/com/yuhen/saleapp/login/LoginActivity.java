@@ -3,6 +3,7 @@ package com.yuhen.saleapp.login;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestTemplate;
 
 import android.animation.Animator;
@@ -12,6 +13,7 @@ import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -30,10 +32,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.yuhen.saleapp.MainActivity;
 import com.yuhen.saleapp.R;
 import com.yuhen.saleapp.domain.User;
+import com.yuhen.saleapp.util.HttpUtil;
 import com.yuhen.saleapp.util.SecureUtil;
+import com.yuhen.saleapp.util.TipFlag;
+import com.yuhen.saleapp.util.Validator;
 
 /**
  * 登录功能
@@ -45,12 +52,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
 	private UserLoginTask mAuthTask = null;
-
+	
 	// UI references.
 	private AutoCompleteTextView mMobileView;
 	private EditText mPasswordView;
 	private View mProgressView;
 	private View mLoginFormView;
+	private View mLoginTitleView;
+	private View mRegisterTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +92,35 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			}
 		});
 
+		mRegisterTextView = findViewById(R.id.register_text);
+		mRegisterTextView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+				startActivityForResult(intent, HttpStatus.OK.value());
+			}
+		});
+		
 		mLoginFormView = findViewById(R.id.login_form);
+		mLoginTitleView = findViewById(R.id.login_title);
 		mProgressView = findViewById(R.id.login_progress);
 	}
-
+	
+	//重写该方法，该方法回调的方式来获取指定的Activity返回的结果
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+		
+		if(requestCode == HttpStatus.OK.value() && resultCode == HttpStatus.OK.value()){
+			Bundle data = intent.getExtras();
+			String mobile = data.getString("mobile");
+			String password = data.getString("password");
+			
+			mMobileView.setText(mobile);
+			mPasswordView.setText(password);
+		}
+	}
+	
 	private void populateAutoComplete() {
 		if (VERSION.SDK_INT >= 14) {
 			// Use ContactsContract.Profile (API 14+)
@@ -107,61 +141,54 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			return;
 		}
 
-		// Reset errors.
+		// 清空错误
 		mMobileView.setError(null);
 		mPasswordView.setError(null);
 
-		// Store values at the time of the login attempt.
+		// 保存输入的手机号码和密码
 		String mobile = mMobileView.getText().toString();
 		String password = mPasswordView.getText().toString();
 
 		boolean cancel = false;
 		View focusView = null;
-
-		// Check for a valid password, if the user entered one.
-		if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-			mPasswordView.setError(getString(R.string.error_invalid_password));
-			focusView = mPasswordView;
-			cancel = true;
-		}
-
-		// Check for a valid mobile number.
+		
+		// 手机号码为必输入的以及正确输入.
 		if (TextUtils.isEmpty(mobile)) {
 			mMobileView.setError(getString(R.string.error_field_required));
 			focusView = mMobileView;
 			cancel = true;
-		} else if (!isMobileValid(mobile)) {
+		} else if (!Validator.isMoblie(mobile)) {
 			mMobileView.setError(getString(R.string.error_invalid_mobile));
 			focusView = mMobileView;
 			cancel = true;
 		}
 
+		// 检验密码.
+		if (TextUtils.isEmpty(password)){
+			mPasswordView.setError(getString(R.string.error_field_required));
+			focusView = mPasswordView;
+			cancel = true;
+		}else if(!Validator.isPwdLength(password)){
+			mPasswordView.setError(getString(R.string.error_length_password));
+			focusView = mPasswordView;
+			cancel = true;
+		}else if(!Validator.isPassword(password)){
+			mPasswordView.setError(getString(R.string.error_invalid_password));
+			focusView = mPasswordView;
+			cancel = true;
+		}
+		
+
 		if (cancel) {
-			// There was an error; don't attempt login and focus the first
-			// form field with an error.
+			// 有错误，不登录，焦点在错误的输入框中，并显示错误
 			focusView.requestFocus();
 		} else {
-			// Show a progress spinner, and kick off a background task to
-			// perform the user login attempt.
-			
+			//显示进度条，并发送登录请求，准备登录
 			password = SecureUtil.shaEncode(password);
 			showProgress(true);
 			mAuthTask = new UserLoginTask(mobile, password);
 			mAuthTask.execute((Void) null);
 		}
-	}
-
-	private boolean isMobileValid(String mobile) {
-		// TODO: 目前只是判断手机号码11位而已，以后增加其他判断
-		if(mobile.length() == 11){
-			return true;
-		}
-		return false;
-	}
-
-	private boolean isPasswordValid(String password) {
-		// TODO: 密码至少4位
-		return password.length() > 4;
 	}
 
 	/**
@@ -176,6 +203,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			int shortAnimTime = getResources().getInteger(
 					android.R.integer.config_shortAnimTime);
 
+			//登录框
 			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 			mLoginFormView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 0 : 1)
@@ -186,7 +214,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 									: View.VISIBLE);
 						}
 					});
-
+			//登录标题框
+			mLoginTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
+			mLoginTitleView.animate().setDuration(shortAnimTime)
+					.alpha(show ? 0 : 1)
+					.setListener(new AnimatorListenerAdapter() {
+						@Override
+						public void onAnimationEnd(Animator animation) {
+							mLoginTitleView.setVisibility(show ? View.GONE
+									: View.VISIBLE);
+						}
+					});
+			
+			//进度条
 			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
 			mProgressView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 1 : 0)
@@ -202,6 +242,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			// and hide the relevant UI components.
 			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
 			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+			mLoginTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
 
@@ -250,9 +291,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	}
 
 	/**
-	 * Use an AsyncTask to fetch the user's mobile number on a background
-	 * thread, and update the mobile text field with results on the main UI
-	 * thread.
+	 * 异步获取用户的手机号码，并在手机号码输入框中显示出来
 	 */
 	class SetupMobileAutoCompleteTask extends
 			AsyncTask<Void, Void, List<String>> {
@@ -269,7 +308,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			while (mobileCur.moveToNext()) {
 				String mobile = mobileCur
 						.getString(mobileCur
-								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
+								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 				moblieCollection.add(mobile);
 			}
 			mobileCur.close();
@@ -295,10 +334,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	}
 
 	/**
-	 * Represents an asynchronous login/registration task used to authenticate
-	 * the user.
+	 * 异步发送HTTP请求登录
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+	public class UserLoginTask extends AsyncTask<Void, Void, Integer> {
 
 		private final String mMobile;
 		private final String mPassword;
@@ -309,39 +347,48 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		}
 
 		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO: 连接服务器，检查用户是否授权了。.
-			String url = "http://localhost:8001/sgams/user/login.do";
+		protected Integer doInBackground(Void... params) {
+			String url = HttpUtil.BASE_URL + "/user/login.do";
 			
-			// Create a new RestTemplate instance
+			// 创建 RestTemplate 实例
 			RestTemplate restTemplate = new RestTemplate();
 
 			User user = new User();
 			user.setMobile(mMobile);
 			user.setPassword(mPassword);
-			user.setUserType("0");//卖家
-			// Make the HTTP GET request, marshaling the response to a String
-			String result = restTemplate.postForObject(url, user, String.class);
+			user.setUser_type("0");//卖家
+			// 发送登录请求
+			String result = null;
+			try{
+				result = restTemplate.postForObject(url, user, String.class);
+			}catch (Exception e) {
+				e.printStackTrace();
+				return TipFlag.NETWORK_ERROR;
+			}
 			
 			if(result == null){
-				return false;
+				return TipFlag.LOGIN_FAIL;
 			}
 
-			// TODO: register the new account here.
-			return true;
+			return TipFlag.LOGIN_SUCCESS;
 		}
 
 		@Override
-		protected void onPostExecute(final Boolean success) {
+		protected void onPostExecute(final Integer success) {
 			mAuthTask = null;
 			showProgress(false);
 
-			if (success) {
+			//成功登录
+			if (success.intValue() == TipFlag.LOGIN_SUCCESS) {
+				//启动首页
+				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+				startActivity(intent);
 				finish();
-			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+			} else if (success.intValue() == TipFlag.LOGIN_FAIL) {
+				mPasswordView.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
+			} else if (success.intValue() == TipFlag.NETWORK_ERROR) {
+				Toast.makeText(LoginActivity.this, "服务器响应异常,请稍后再试!", Toast.LENGTH_LONG).show();
 			}
 		}
 

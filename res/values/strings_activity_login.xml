@@ -1,7 +1,6 @@
 <resources>
 
     <string name="title_activity_login">登录</string>
-
     <!-- Strings related to login -->
     <string name="action_cancel">取消</string>
     <string name="action_register">注册</string>
@@ -10,8 +9,9 @@
     <string name="action_sign_in">登录</string>
     <string name="action_sign_in_short">登录</string>
     <string name="error_invalid_mobile">输入的手机号码不可用</string>
-    <string name="error_invalid_password">密码输入太短,至少4位</string>
-    <string name="error_incorrect_password">密码不正确</string>
+    <string name="error_length_password">密码至少6位且不超过20位</string>
+    <string name="error_invalid_password">密码以字母开头只能包含字符、数字和下划线</string>
+    <string name="error_incorrect_password">手机号码不存在或者密码不正确</string>
     <string name="error_field_required">必输</string>
 
     <color name="white">#fff</color>

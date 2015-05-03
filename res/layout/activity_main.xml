@@ -1,43 +1,59 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:orientation="horizontal"
+    android:rowCount="2" 
+    android:layout_gravity="fill"
+    android:padding="10px">
 
-    <GridLayout
+    <ImageButton
+        android:id="@+id/queryOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:orientation="horizontal"
-        android:rowCount="2" >
+        android:background="@drawable/query_order"
+        android:contentDescription="订单查看"
+        android:scaleType="centerInside" 
+        android:layout_gravity="fill" 
+        android:paddingTop="100px"
+        android:paddingLeft="100px">
+    </ImageButton>
 
-        <ImageButton
-            android:id="@+id/queryOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="订单查看"
-            android:src="@drawable/query_order" >
-        </ImageButton>
-        <ImageButton
-            android:id="@+id/editGoods"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="商品编辑"
-            android:src="@drawable/edit_goods" >
-        </ImageButton>
-        <ImageButton
-            android:id="@+id/marketMgr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="销售管理 "
-            android:src="@drawable/market_mgr" >
-        </ImageButton>
-        <ImageButton
-            android:id="@+id/myShop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="我的商店"
-            android:src="@drawable/my_shop" >
-        </ImageButton>
-    </GridLayout>
+    <ImageButton
+        android:id="@+id/editGoods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_goods"
+        android:contentDescription="商品编辑"
+        android:scaleType="centerInside"
+        android:layout_gravity="fill"
+        android:paddingTop="100px"
+        android:paddingRight="100px" >
+    </ImageButton>
 
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/marketMgr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/market_mgr"
+        android:contentDescription="销售管理 "
+        android:scaleType="centerInside"
+        android:layout_gravity="fill"
+        android:paddingBottom="100px"
+        android:paddingLeft="100px" >
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/myShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_shop"
+        android:contentDescription="我的商店"
+        android:scaleType="centerInside"
+        android:layout_gravity="fill"
+        android:paddingBottom="100px"
+        android:paddingRight="100px" >
+    </ImageButton>
+
+</GridLayout>
