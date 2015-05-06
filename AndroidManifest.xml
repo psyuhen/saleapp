@@ -7,6 +7,11 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
+    
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -29,19 +34,17 @@
         </activity>
         <activity
             android:name=".login.LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
             android:name="com.yuhen.saleapp.login.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/register" >
+        </activity>
+        <activity
+            android:name="com.yuhen.saleapp.shop.ShopActivity"
+            android:label="@string/my_shop" >
         </activity>
     </application>
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -1,59 +1,67 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnCount="2"
-    android:orientation="horizontal"
-    android:rowCount="2" 
-    android:layout_gravity="fill"
-    android:padding="10px">
+    android:orientation="vertical" 
+    android:gravity="center_vertical"
+    android:layout_gravity="center_vertical">
 
-    <ImageButton
-        android:id="@+id/queryOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/query_order"
-        android:contentDescription="订单查看"
-        android:scaleType="centerInside" 
-        android:layout_gravity="fill" 
-        android:paddingTop="100px"
-        android:paddingLeft="100px">
-    </ImageButton>
-
-    <ImageButton
-        android:id="@+id/editGoods"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_goods"
-        android:contentDescription="商品编辑"
-        android:scaleType="centerInside"
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="fill"
-        android:paddingTop="100px"
-        android:paddingRight="100px" >
-    </ImageButton>
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:padding="10px"
+        android:rowCount="2" >
 
-    <ImageButton
-        android:id="@+id/marketMgr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/market_mgr"
-        android:contentDescription="销售管理 "
-        android:scaleType="centerInside"
-        android:layout_gravity="fill"
-        android:paddingBottom="100px"
-        android:paddingLeft="100px" >
-    </ImageButton>
+        <ImageButton
+            android:id="@+id/queryOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:background="@drawable/query_order"
+            android:contentDescription="订单查看"
+            android:paddingLeft="100px"
+            android:paddingTop="100px"
+            android:scaleType="centerInside" >
+        </ImageButton>
 
-    <ImageButton
-        android:id="@+id/myShop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/my_shop"
-        android:contentDescription="我的商店"
-        android:scaleType="centerInside"
-        android:layout_gravity="fill"
-        android:paddingBottom="100px"
-        android:paddingRight="100px" >
-    </ImageButton>
+        <ImageButton
+            android:id="@+id/editGoods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:background="@drawable/edit_goods"
+            android:contentDescription="商品编辑"
+            android:paddingRight="100px"
+            android:paddingTop="100px"
+            android:scaleType="centerInside" >
+        </ImageButton>
 
-</GridLayout>
+        <ImageButton
+            android:id="@+id/marketMgr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:background="@drawable/market_mgr"
+            android:contentDescription="销售管理 "
+            android:paddingBottom="100px"
+            android:paddingLeft="100px"
+            android:scaleType="centerInside" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/myShop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:background="@drawable/my_shop"
+            android:contentDescription="我的商店"
+            android:paddingBottom="100px"
+            android:paddingRight="100px"
+            android:scaleType="centerInside" >
+        </ImageButton>
+    </GridLayout>
+
+</LinearLayout>

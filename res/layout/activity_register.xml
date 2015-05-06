@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:paddingLeft="10.0dip"
                 android:paddingRight="10.0dip"
-                android:text="@string/register_back"
+                android:text="@string/back"
                 android:textColor="#ffffffff"
                 android:textSize="14.0dip"
                 android:textStyle="bold" />
@@ -51,7 +51,7 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="@string/register_center_text"
+                android:text="@string/register"
                 android:textColor="#ffffffff"
                 android:textSize="18.0dip"
                 android:textStyle="bold" />
@@ -64,13 +64,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="@string/tv_mobile" />
+                android:text="@string/mobile" />
 
             <EditText
                 android:id="@+id/et_mobile"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:hint="@string/prompt_mobile"
+                android:hint="@string/mobile"
                 android:inputType="number"
                 android:singleLine="true" />
         </TableRow>
@@ -82,13 +82,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="@string/tv_password" />
+                android:text="@string/password" />
 
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:hint="@string/prompt_password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:singleLine="true" />
         </TableRow>
@@ -100,13 +100,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="@string/tv_shop_name" />
+                android:text="@string/shop_name" />
 
             <EditText
                 android:id="@+id/et_shop_name"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:hint="@string/prompt_shop_name"
+                android:hint="@string/shop_name"
                 android:inputType="text" />
         </TableRow>
 
@@ -117,13 +117,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="@string/tv_address" />
+                android:text="@string/shop_address" />
 
             <EditText
                 android:id="@+id/et_address"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:hint="@string/prompt_address"
+                android:hint="@string/shop_address"
                 android:inputType="text" />
         </TableRow>
 
@@ -135,7 +135,7 @@
             android:layout_marginBottom="12.0dip"
             android:layout_marginTop="12.0dip"
             android:background="@drawable/bg"
-            android:text="@string/btn_text"
+            android:text="@string/register"
             android:textColor="@color/white"
             android:textSize="18.0dip"
             android:textStyle="bold" />

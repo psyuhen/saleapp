@@ -9,5 +9,5 @@ package com.yuhen.saleapp.util;
  *
  */
 public class HttpUtil {
-	public static final String BASE_URL = "http://192.168.1.101:8001/sgams";
+	public static final String BASE_URL = "http://192.168.1.104:8001/sgams";
 }
