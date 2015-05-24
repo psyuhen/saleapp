@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="shop_detail">商家信息</string>
+    <string name="shop_detail_logout">退出登录</string>
+    
+</resources>

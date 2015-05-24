@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.yuhen.saleapp.R;
 import com.yuhen.saleapp.domain.User;
+import com.yuhen.saleapp.shop.ShopDetailActivity;
 import com.yuhen.saleapp.util.HttpUtil;
 import com.yuhen.saleapp.util.SecureUtil;
 import com.yuhen.saleapp.util.TipFlag;
@@ -32,11 +33,14 @@ public class RegisterActivity extends Activity {
 
 	private EditText mMobileView;
 	private EditText mPasswordView;
+	private EditText mComfirmPasswordView;
 	private EditText mShopNameView;
 	private EditText mAddressView;
 	
 	private View mProgressView;
 	private View mTlRegisterView;
+	private View mRegisterBackView;
+	private View mRegisterTitleView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +49,26 @@ public class RegisterActivity extends Activity {
 		
 		mMobileView = (EditText) findViewById(R.id.et_mobile);
 		mPasswordView = (EditText) findViewById(R.id.et_password);
+		mComfirmPasswordView = (EditText) findViewById(R.id.et_comfirm_password);
 		mShopNameView = (EditText) findViewById(R.id.et_shop_name);
 		mAddressView = (EditText) findViewById(R.id.et_address);
 		mProgressView = findViewById(R.id.register_progress);
-		mTlRegisterView = findViewById(R.id.tl_register);
+		mTlRegisterView = findViewById(R.id.sv_register);
+		mRegisterBackView = findViewById(R.id.register_back);
+		mRegisterTitleView = findViewById(R.id.register_title);
 		
 		Button btnRegister = (Button) findViewById(R.id.btn_register);
 		btnRegister.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				attemptRegister();
+			}
+		});
+		
+		mRegisterBackView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
 			}
 		});
 	}
@@ -67,11 +81,13 @@ public class RegisterActivity extends Activity {
 		// 清空错误
 		mMobileView.setError(null);
 		mPasswordView.setError(null);
+		mComfirmPasswordView.setError(null);
 		mShopNameView.setError(null);
 		mAddressView.setError(null);
 		
 		String mobile = mMobileView.getText().toString();
 		String password = mPasswordView.getText().toString();
+		String comfirmPassword = mComfirmPasswordView.getText().toString();
 		String shopName = mShopNameView.getText().toString();
 		String address = mAddressView.getText().toString();
 
@@ -98,6 +114,10 @@ public class RegisterActivity extends Activity {
 		}else if(!Validator.isPassword(password)){
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
+			cancel = true;
+		}else if(!password.equals(comfirmPassword)){
+			mComfirmPasswordView.setError(getString(R.string.error_comfirm_password));
+			focusView = mComfirmPasswordView;
 			cancel = true;
 		}else if (TextUtils.isEmpty(shopName)) {
 			mShopNameView.setError(getString(R.string.error_field_required));
@@ -154,11 +174,13 @@ public class RegisterActivity extends Activity {
 									: View.GONE);
 						}
 					});
+			mRegisterTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
 		} else {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
 			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
 			mTlRegisterView.setVisibility(show ? View.GONE : View.VISIBLE);
+			mRegisterTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
 	
@@ -220,10 +242,12 @@ public class RegisterActivity extends Activity {
 			if (success.intValue() == TipFlag.REGISTER_SUCCESS) {
 				Toast.makeText(RegisterActivity.this, mTipInfo, Toast.LENGTH_LONG).show();
 				//注册成功，返回登录页面
-				Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+				Intent intent = new Intent(RegisterActivity.this, ShopDetailActivity.class);
 				intent.putExtra("mobile", mMobileView.getText().toString());
 				intent.putExtra("password", mPasswordView.getText().toString());
-				RegisterActivity.this.setResult(HttpStatus.OK.value(), intent);
+				intent.putExtra("from", "register");
+//				RegisterActivity.this.setResult(HttpStatus.OK.value(), intent);
+				startActivity(intent);
 				finish();
 			} else if (success.intValue() == TipFlag.REGISTER_FAIL) {
 				Toast.makeText(RegisterActivity.this, mTipInfo, Toast.LENGTH_LONG).show();

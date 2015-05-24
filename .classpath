@@ -9,8 +9,8 @@
 	<classpathentry exported="true" kind="lib" path="libs/spring-android-core-2.0.0.M1.jar" sourcepath="D:/learn/soft/maven/localrepository/repository/org/springframework/android/spring-android-core/2.0.0.M1/spring-android-core-2.0.0.M1-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/spring-android-rest-template-2.0.0.M1.jar" sourcepath="D:/learn/soft/maven/localrepository/repository/org/springframework/android/spring-android-rest-template/2.0.0.M1/spring-android-rest-template-2.0.0.M1-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/commons-lang-2.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/jackson-databind-2.5.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/jackson-core-2.5.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jackson-databind-2.5.2.jar" sourcepath="D:/learn/soft/maven/localrepository/repository/com/fasterxml/jackson/core/jackson-databind/2.5.2/jackson-databind-2.5.2-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jackson-core-2.5.2.jar" sourcepath="D:/learn/soft/maven/localrepository/repository/com/fasterxml/jackson/core/jackson-core/2.5.2/jackson-core-2.5.2-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jackson-annotations-2.5.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

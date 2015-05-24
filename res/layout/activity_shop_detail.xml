@@ -8,23 +8,23 @@
     <!-- Login progress -->
 
     <ProgressBar
-        android:id="@+id/register_progress"
+        android:id="@+id/shop_detail_progress"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <!-- 显示注册按钮和标题信息 -->
+    <!-- 显示标题信息 -->
 
     <RelativeLayout
-        android:id="@+id/register_title"
+        android:id="@+id/shop_detail_title"
         android:layout_width="fill_parent"
         android:layout_height="48.0dip"
         android:background="@drawable/bg" >
 
         <TextView
-            android:id="@+id/register_back"
+            android:id="@+id/shop_detail_back"
             android:layout_width="wrap_content"
             android:layout_height="35.0dip"
             android:layout_alignParentLeft="true"
@@ -39,21 +39,21 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/register_center_text"
+            android:id="@+id/shop_detail_center_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:ellipsize="end"
             android:gravity="center"
             android:singleLine="true"
-            android:text="@string/register"
+            android:text="@string/shop_detail"
             android:textColor="#ffffffff"
             android:textSize="18.0dip"
             android:textStyle="bold" />
     </RelativeLayout>
 
     <ScrollView
-        android:id="@+id/sv_register"
+        android:id="@+id/sv_shop_detail"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
@@ -62,89 +62,96 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10.0dip" >
-
+            
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
+                android:gravity="start"
+                android:orientation="vertical"
                 android:padding="5.0dip" >
 
                 <TextView
-                    android:id="@+id/tv_mobile"
+                    android:id="@+id/tv_shop_classify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="@string/mobile" />
+                    android:text="@string/shop_classify" />
 
-                <EditText
-                    android:id="@+id/et_mobile"
+                <Spinner android:id="@+id/s_shop_classify"
                     android:layout_width="match_parent"
                     android:layout_height="36dip"  
-        			android:background="@drawable/bg_edittext" 
-                    android:hint="@string/mobile"
-                    android:inputType="number"
-                    android:singleLine="true" />
+        			android:background="@drawable/bg_edittext"/>
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
+                android:gravity="start"
+                android:orientation="vertical"
                 android:padding="5.0dip" >
 
                 <TextView
-                    android:id="@+id/tv_password"
+                    android:id="@+id/tv_shop_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="@string/password" />
+                    android:text="@string/shop_name" />
 
                 <EditText
-                    android:id="@+id/et_password"
+                    android:id="@+id/et_shop_name"
                     android:layout_width="match_parent"
                     android:layout_height="36dip"  
         			android:background="@drawable/bg_edittext" 
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:singleLine="true" />
+                    android:hint="@string/shop_name"
+                    android:inputType="text" />
             </LinearLayout>
             
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
+                android:gravity="start"
+                android:orientation="vertical"
                 android:padding="5.0dip" >
 
                 <TextView
-                    android:id="@+id/tv_comfirm_password"
+                    android:id="@+id/tv_adress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="@string/password" />
+                    android:text="@string/shop_address" />
 
                 <EditText
-                    android:id="@+id/et_comfirm_password"
+                    android:id="@+id/et_address"
                     android:layout_width="match_parent"
                     android:layout_height="36dip"  
         			android:background="@drawable/bg_edittext" 
-                    android:hint="@string/comfirm_password"
-                    android:inputType="textPassword"
-                    android:singleLine="true" />
+                    android:hint="@string/shop_address"
+                    android:inputType="text" />
             </LinearLayout>
 
-
             <Button
-                android:id="@+id/btn_register"
+                android:id="@+id/btn_shop_detail"
                 android:layout_width="200.0dip"
                 android:layout_height="42.0dip"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="12.0dip"
                 android:layout_marginTop="12.0dip"
                 android:background="@drawable/bg"
-                android:text="@string/register"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="18.0dip"
+                android:textStyle="bold" />
+            
+            <Button
+                android:id="@+id/btn_shop_detail_logout"
+                android:layout_width="200.0dip"
+                android:layout_height="42.0dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="12.0dip"
+                android:layout_marginTop="12.0dip"
+                android:background="@drawable/bg"
+                android:text="@string/shop_detail_logout"
                 android:textColor="@color/white"
                 android:textSize="18.0dip"
                 android:textStyle="bold" />

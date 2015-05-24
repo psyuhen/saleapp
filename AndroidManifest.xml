@@ -45,6 +45,10 @@
             android:name="com.yuhen.saleapp.shop.ShopActivity"
             android:label="@string/my_shop" >
         </activity>
+        <activity
+            android:name="com.yuhen.saleapp.shop.ShopDetailActivity"
+            android:label="@string/shop_detail" >
+        </activity>
     </application>
 
 </manifest>

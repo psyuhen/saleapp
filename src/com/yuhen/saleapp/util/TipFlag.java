@@ -30,4 +30,12 @@ public class TipFlag {
 	 * 注册成功
 	 */
 	public static final int REGISTER_SUCCESS = 0;
+	/**
+	 * 成功
+	 */
+	public static final int SUCCESS = 0;
+	/**
+	 * 失败
+	 */
+	public static final int FAILURE = 2;
 }
