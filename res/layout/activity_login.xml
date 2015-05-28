@@ -8,6 +8,7 @@
     tools:context="com.yuhen.saleapp.login.LoginActivity" >
 
     <!-- Login progress -->
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -17,55 +18,9 @@
         android:visibility="gone" />
 
     <!-- 显示注册按钮和标题信息 -->
-    <RelativeLayout
-        android:id="@+id/login_title"
-        android:layout_width="fill_parent"
-        android:layout_height="48.0dip"
-        android:background="@drawable/bg" >
-
-        <TextView
-            android:id="@+id/login_cancle"
-            android:layout_width="wrap_content"
-            android:layout_height="35.0dip"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8.0dip"
-            android:gravity="center"
-            android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip"
-            android:text="@string/cancel"
-            android:textColor="#ffffffff"
-            android:textSize="14.0dip"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/center_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/login"
-            android:textColor="#ffffffff"
-            android:textSize="18.0dip"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/register_text"
-            android:layout_width="wrap_content"
-            android:layout_height="35.0dip"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8.0dip"
-            android:gravity="center"
-            android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip"
-            android:text="@string/register"
-            android:textColor="#ffffffff"
-            android:textSize="14.0dip"
-            android:textStyle="bold" />
-    </RelativeLayout>
+    <include
+        android:id="@+id/login_main_head"
+        layout="@layout/main_head" />
 
     <ScrollView
         android:id="@+id/login_form"
@@ -74,45 +29,45 @@
 
         <LinearLayout
             android:id="@+id/mobile_login_form"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/mobile"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="36dip"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginTop="10dip"
+                android:layout_marginBottom="10dip"
+                android:textSize="12sp"
+                android:text="13533714838"
                 android:hint="@string/mobile"
-                android:inputType="phone"
-                android:maxLines="1"
-                android:textSize="16.0dip"
-                android:singleLine="true" 
-                android:text="13533714838"/>
+                android:inputType="number"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="36dip"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginBottom="10dip"
+                android:textSize="12sp"
                 android:hint="@string/password"
-                android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/login"
-                android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:textSize="16.0dip"
-                android:singleLine="true"
-                android:text="testsaleapp" />
+                android:text="testsaleapp"
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/mobile_sign_in_button"
                 android:layout_width="200.0dip"
-                android:layout_height="42.0dip"  
-                android:layout_gravity="center_horizontal"  
-                android:layout_marginBottom="12.0dip"  
+                android:layout_height="42.0dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="12.0dip"
                 android:layout_marginTop="12.0dip"
+                android:background="@drawable/bg"
                 android:text="@string/login"
                 android:textColor="@color/white"
-                android:background="@drawable/bg"
                 android:textSize="18.0dip"
                 android:textStyle="bold" />
         </LinearLayout>

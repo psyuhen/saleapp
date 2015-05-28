@@ -5,6 +5,10 @@
     android:orientation="vertical" 
     android:gravity="center_vertical"
     android:layout_gravity="center_vertical">
+    
+    <include
+        android:id="@+id/main_head"
+        layout="@layout/main_head" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -12,10 +16,10 @@
         android:layout_gravity="fill"
         android:columnCount="2"
         android:orientation="horizontal"
-        android:layout_marginTop="170px"
+        android:layout_marginTop="160px"
         android:layout_marginLeft="40px"
         android:layout_marginRight="40px"
-        android:layout_marginBottom="170px"
+        android:layout_marginBottom="160px"
         android:padding="10px"
         android:rowCount="2" >
 

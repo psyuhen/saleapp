@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fffafafa"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/goods_main_head"
+        layout="@layout/main_head" />
+
+    <include
+        android:id="@+id/goods_radio_tab"
+        layout="@layout/radio_tab" />
+
+    <android.support.v4.view.ViewPager  
+        android:id="@+id/vp_goods_list"  
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content"   />
+
+</LinearLayout>

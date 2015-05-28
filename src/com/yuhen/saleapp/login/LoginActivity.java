@@ -1,7 +1,6 @@
 package com.yuhen.saleapp.login;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestTemplate;
@@ -9,35 +8,24 @@ import org.springframework.web.client.RestTemplate;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Build.VERSION;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yuhen.saleapp.MainActivity;
 import com.yuhen.saleapp.R;
+import com.yuhen.saleapp.activity.BaseActivity;
 import com.yuhen.saleapp.domain.User;
+import com.yuhen.saleapp.session.SessionManager;
 import com.yuhen.saleapp.util.HttpUtil;
+import com.yuhen.saleapp.util.JsonUtil;
 import com.yuhen.saleapp.util.SecureUtil;
 import com.yuhen.saleapp.util.TipFlag;
 import com.yuhen.saleapp.util.Validator;
@@ -46,7 +34,7 @@ import com.yuhen.saleapp.util.Validator;
  * 登录功能
  * @author ps
  */
-public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActivity{
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -54,34 +42,32 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 	private UserLoginTask mAuthTask = null;
 	
 	// UI references.
-	private AutoCompleteTextView mMobileView;
+	private EditText mMobileView;
 	private EditText mPasswordView;
 	private View mProgressView;
 	private View mLoginFormView;
-	private View mLoginTitleView;
-	private View mRegisterTextView;
+	private View mLoginMainHead;
+	
+	private SessionManager sessionManager;
 
+	@Override
+	public void initView() {
+		super.initView();
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		initView();
+		head_center_text.setText("登录");
+		head_right_text.setText("注册");
 
+		sessionManager = new SessionManager(getApplicationContext());
+		
 		// 初始化登录页面
-		mMobileView = (AutoCompleteTextView) findViewById(R.id.mobile);
-		populateAutoComplete();
-
+		mMobileView = (EditText) findViewById(R.id.mobile);
 		mPasswordView = (EditText) findViewById(R.id.password);
-		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-					@Override
-					public boolean onEditorAction(TextView textView, int id,
-							KeyEvent keyEvent) {
-						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
-							return true;
-						}
-						return false;
-					}
-				});
 
 		//登录按钮事件
 		Button mMobileSignInButton = (Button) findViewById(R.id.mobile_sign_in_button);
@@ -92,8 +78,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			}
 		});
 
-		mRegisterTextView = findViewById(R.id.register_text);
-		mRegisterTextView.setOnClickListener(new OnClickListener() {
+		head_right_text.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -102,7 +87,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		});
 		
 		mLoginFormView = findViewById(R.id.login_form);
-		mLoginTitleView = findViewById(R.id.login_title);
+		mLoginMainHead = findViewById(R.id.login_main_head);
 		mProgressView = findViewById(R.id.login_progress);
 	}
 	
@@ -121,16 +106,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 		}
 	}
 	
-	private void populateAutoComplete() {
-		if (VERSION.SDK_INT >= 14) {
-			// Use ContactsContract.Profile (API 14+)
-			getLoaderManager().initLoader(0, null, this);
-		} else if (VERSION.SDK_INT >= 8) {
-			// Use AccountManager (API 8+)
-			new SetupMobileAutoCompleteTask().execute(null, null);
-		}
-	}
-
 	/**
 	 * Attempts to sign in or register the account specified by the login form.
 	 * If there are form errors (invalid email, missing fields, etc.), the
@@ -215,13 +190,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 						}
 					});
 			//登录标题框
-			mLoginTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
-			mLoginTitleView.animate().setDuration(shortAnimTime)
+			mLoginMainHead.setVisibility(show ? View.GONE : View.VISIBLE);
+			mLoginMainHead.animate().setDuration(shortAnimTime)
 					.alpha(show ? 0 : 1)
 					.setListener(new AnimatorListenerAdapter() {
 						@Override
 						public void onAnimationEnd(Animator animation) {
-							mLoginTitleView.setVisibility(show ? View.GONE
+							mLoginMainHead.setVisibility(show ? View.GONE
 									: View.VISIBLE);
 						}
 					});
@@ -242,95 +217,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			// and hide the relevant UI components.
 			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
 			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-			mLoginTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
+			mLoginMainHead.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
-	}
-
-	@Override
-	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-		//获取联系人的手机号码
-		return new CursorLoader(this,
-				// Retrieve data rows for the device user's 'profile' contact.
-				Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-						ContactsContract.Contacts.Data.CONTENT_DIRECTORY),
-				ProfileQuery.PROJECTION,
-
-				// Select only mobile number.
-				ContactsContract.Contacts.Data.MIMETYPE + " = ?",
-				new String[] { ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE },
-
-				// Show primary mobile number first. Note that there won't be
-				// a primary mobile number if the user hasn't specified one.
-				ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-	}
-
-	@Override
-	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-		//遍历查询结果，获取该联系人的多个号码
-		List<String> mobiles = new ArrayList<String>();
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) {
-			mobiles.add(cursor.getString(ProfileQuery.NUMBER));
-			cursor.moveToNext();
-		}
-
-		addMobilesToAutoComplete(mobiles);
-	}
-
-	@Override
-	public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-	}
-
-	private interface ProfileQuery {
-		String[] PROJECTION = { ContactsContract.CommonDataKinds.Phone.NUMBER,
-				ContactsContract.CommonDataKinds.Phone.IS_PRIMARY, };
-
-		int NUMBER = 0;
-		int IS_PRIMARY = 1;
-	}
-
-	/**
-	 * 异步获取用户的手机号码，并在手机号码输入框中显示出来
-	 */
-	class SetupMobileAutoCompleteTask extends
-			AsyncTask<Void, Void, List<String>> {
-
-		@Override
-		protected List<String> doInBackground(Void... voids) {
-			ArrayList<String> moblieCollection = new ArrayList<String>();
-
-			// Get all mobiles from the user's contacts and copy them to a list.
-			ContentResolver cr = getContentResolver();
-			Cursor mobileCur = cr.query(
-					ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-					null, null, null);
-			while (mobileCur.moveToNext()) {
-				String mobile = mobileCur
-						.getString(mobileCur
-								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-				moblieCollection.add(mobile);
-			}
-			mobileCur.close();
-
-			return moblieCollection;
-		}
-
-		@Override
-		protected void onPostExecute(List<String> moblileCollection) {
-			addMobilesToAutoComplete(moblileCollection);
-		}
-	}
-
-	private void addMobilesToAutoComplete(List<String> mobileCollection) {
-		// Create adapter to tell the AutoCompleteTextView what to show in its
-		// dropdown list.
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-				LoginActivity.this,
-				android.R.layout.simple_dropdown_item_1line,
-				mobileCollection);
-
-		mMobileView.setAdapter(adapter);
 	}
 
 	/**
@@ -340,6 +228,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 		private final String mMobile;
 		private final String mPassword;
+		private String loginResult;
 
 		UserLoginTask(String mobile, String password) {
 			mMobile = mobile;
@@ -361,6 +250,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 			String result = null;
 			try{
 				result = restTemplate.postForObject(url, user, String.class);
+				loginResult = result;
 			}catch (Exception e) {
 				e.printStackTrace();
 				return TipFlag.NETWORK_ERROR;
@@ -380,6 +270,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 			//成功登录
 			if (success.intValue() == TipFlag.LOGIN_SUCCESS) {
+				Map<String,String> map = JsonUtil.parse2Map(loginResult);
+				User user = new User();
+				user.setUser_id(Integer.parseInt(map.get("user_id")));
+				user.setName(map.get("name"));
+				user.setMobile(map.get("mobile"));
+				user.setQq(map.get("qq"));
+				user.setWe_chat(map.get("we_chat"));
+				
+				sessionManager.createLoginSession(user);
+				
 				//启动首页
 				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(intent);

@@ -8,10 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestTemplate;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -34,25 +32,28 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yuhen.saleapp.R;
+import com.yuhen.saleapp.activity.BaseActivity;
 import com.yuhen.saleapp.domain.MerchInfo;
 import com.yuhen.saleapp.domain.Store;
-import com.yuhen.saleapp.login.LoginActivity;
+import com.yuhen.saleapp.domain.User;
 import com.yuhen.saleapp.menu.ActionItem;
 import com.yuhen.saleapp.menu.TitlePopup;
 import com.yuhen.saleapp.menu.TitlePopup.OnItemOnClickListener;
+import com.yuhen.saleapp.session.SessionManager;
 import com.yuhen.saleapp.util.HttpUtil;
 import com.yuhen.saleapp.util.TipFlag;
 
-public class ShopActivity extends Activity {
+public class ShopActivity extends BaseActivity {
 	
 	private View imageView;
 	private EditText mSearchView;
 	private Drawable mIconSearchDefault; // 搜索文本框默认图标
     private Drawable mIconSearchClear; // 搜索文本框清除文本内容图标
-    private View mShopBackView;
     private ListView mListView;
     private View mShopLogoView;
     private View mShopAddressView;
@@ -62,15 +63,37 @@ public class ShopActivity extends Activity {
     private ShopInfoTask mShopInfoTask = null;
     private Store storeInfo = null;
     
+    //出售中，已下架，分类
+    private View mSelling;
+    private View mOutPublished;
+    private View mClassify;
+    
+    //添加时间，销量，库存
+    private View mAddTime;
+    private View mSellVolumn;
+    private View mInStock;
+    
+    private SessionManager sessionManager;
+    
 	/**
 	 * 右上角上下文菜单
 	 */
 	TitlePopup titlePopup;
 
 	@Override
+	public void initView() {
+		super.initView();
+	}
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop);
+		initView();
+		head_center_text.setText("我的商店");
+		head_right_text.setText("编辑");
+		
+		sessionManager = new SessionManager(getApplicationContext());
 		
 		/**  商家信息    **/
 		mShopLogoView = findViewById(R.id.iv_shop_logo);
@@ -82,14 +105,14 @@ public class ShopActivity extends Activity {
 		mShopFav = findViewById(R.id.iv_shop_fav);
 		
 		/**  菜单    **/
-		imageView = findViewById(R.id.imgMenu);
-		imageView.setOnClickListener(new OnClickListener() {
+		head_right_text.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				titlePopup.show(view);//popwindow显示的位置
 			}
 		});
 		
+		/** 搜索   **/
 		final Resources res = getResources();
         mIconSearchDefault = res.getDrawable(R.drawable.txt_search_default);
         mIconSearchClear = res.getDrawable(R.drawable.txt_search_clear);
@@ -147,15 +170,6 @@ public class ShopActivity extends Activity {
 		
 		initMenu();
 		
-		/** 返回按钮 **/
-		mShopBackView = findViewById(R.id.shop_back);
-		mShopBackView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		
 		/** 列表显示 **/
 		mListView = (ListView)findViewById(R.id.lv_merch_list);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -163,6 +177,52 @@ public class ShopActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				//TODO 显示商品详细信息
+			}
+		});
+		
+		/** 出售中，已下架，分类**/
+		mSelling = findViewById(R.id.tv_selling);
+		mOutPublished = findViewById(R.id.tv_offline);
+		mClassify = findViewById(R.id.tv_classify);
+		mSelling.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+		mOutPublished.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+		mClassify.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+		
+		/** 添加时间，销量，库存 **/
+		mAddTime = findViewById(R.id.tv_header_create_time);
+		mSellVolumn = findViewById(R.id.tv_header_sale_volumn);
+		mInStock = findViewById(R.id.tv_header_in_stock);
+		mAddTime.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+		mSellVolumn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+		mInStock.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
 			}
 		});
 		
@@ -236,12 +296,14 @@ public class ShopActivity extends Activity {
 
 		@Override
 		protected Map<String,Object> doInBackground(Void... params) {
+			User user  = sessionManager.getUserDetails();
+			
 			//根据用户查询商家信息
-			String url1 = HttpUtil.BASE_URL + "/store/querybyuser.do?user_id=1";
+			String url1 = HttpUtil.BASE_URL + "/store/querybyuser.do?user_id="+user.getUser_id();
 			//查询商家收藏数
-			String url2 = HttpUtil.BASE_URL + "/storeuf/count.do?store_id=1";
+			String url2 = HttpUtil.BASE_URL + "/storeuf/count.do?store_id=";
 			//根据用户查询商品列表
-			String url3 = HttpUtil.BASE_URL + "/merch/querybyuserid.do?user_id=1";
+			String url3 = HttpUtil.BASE_URL + "/merch/querybyuserid.do?user_id="+user.getUser_id();
 			
 			// 创建 RestTemplate 实例
 			RestTemplate restTemplate = new RestTemplate();
@@ -254,11 +316,22 @@ public class ShopActivity extends Activity {
 			Map<String,Object> map = new HashMap<String,Object>();
 			try{
 				storeInfo = restTemplate.getForObject(url1, Store.class);
+				
+				if(storeInfo == null){
+					//TODO 当还没有商家的时候，是否要跳转到创建商家页面中
+					map.put("STATUS", TipFlag.NETWORK_ERROR);
+					return map;
+				}
+				
+				url2 += storeInfo.getStore_id();
+				
 				favoriteCount = restTemplate.getForObject(url2, Integer.class);
 				result = restTemplate.getForObject(url3, String.class);
-				ObjectMapper mapper = new ObjectMapper(); 
-				JavaType javaType = mapper.getTypeFactory().constructParametrizedType(ArrayList.class,ArrayList.class,MerchInfo.class);
-				list = (List<MerchInfo>)mapper.readValue(result, javaType);
+				JsonFactory factory = new JsonFactory();
+				ObjectMapper mapper = new ObjectMapper(factory); 
+				TypeReference<List<MerchInfo>> typeRef = new TypeReference<List<MerchInfo>>() {};
+				//JavaType javaType = mapper.getTypeFactory().constructParametrizedType(ArrayList.class,ArrayList.class,MerchInfo.class);
+				list = (List<MerchInfo>)mapper.readValue(result, typeRef);
 				
 				map.put("STORE_INFO", storeInfo);
 				map.put("FAVORITE_COUNT", favoriteCount);

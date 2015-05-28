@@ -1,0 +1,6 @@
+<resources>
+    <string name="sell_manager">销售管理</string>
+    <string name="sell_order_text">成交订单</string>
+    <string name="order_bottom_info_text">如需导出每日订单，请在电脑端访问</string>
+ 	<string name="sell_bottom_website_text">http：//d.weidian.com</string>
+</resources>

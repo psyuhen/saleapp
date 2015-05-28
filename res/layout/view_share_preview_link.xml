@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_gravity="top|center_horizontal"
+    android:background="@color/white"
+    android:orientation="horizontal" >
+
+    <!-- 预览、连接、分享 -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="4"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/btn_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/preview"
+            android:text="@string/preview" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/separator01"
+        android:layout_width="1px"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#90909090" />
+
+    <!-- 连接 -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="4"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/btn_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/link"
+            android:text="@string/link" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/separator02"
+        android:layout_width="1px"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#90909090" />
+
+    <!-- 分享 -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="4"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/btn_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/share"
+            android:text="@string/share" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -11,6 +11,7 @@ package com.yuhen.saleapp.domain;
 public class MerchInfo {
 	private int merch_id;
 	private int store_id;
+	private int user_id;
 	private int image_resource_id;
 	private String name;
 	private float price;
@@ -21,6 +22,7 @@ public class MerchInfo {
 	private String out_published;
 	private String last_modify_time;
 	private String create_time;
+	private String order_by_clause;
 	public int getMerch_id() {
 		return merch_id;
 	}
@@ -32,6 +34,12 @@ public class MerchInfo {
 	}
 	public void setStore_id(int store_id) {
 		this.store_id = store_id;
+	}
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 	public int getImage_resource_id() {
 		return image_resource_id;
@@ -92,6 +100,12 @@ public class MerchInfo {
 	}
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
+	}
+	public String getOrder_by_clause() {
+		return order_by_clause;
+	}
+	public void setOrder_by_clause(String order_by_clause) {
+		this.order_by_clause = order_by_clause;
 	}
 	
 }

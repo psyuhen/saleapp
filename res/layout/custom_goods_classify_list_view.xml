@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/classify_image"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
+        android:layout_margin="10.0dip" />
+
+    <RelativeLayout
+        android:id="@+id/classify_content_rl"
+        android:layout_width="fill_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/classify_title"
+            style="@style/goods_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/classify_num"
+            style="@style/goods_item_sell_mount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/classify_title"
+            android:paddingTop="5.0dip" />
+        <ImageView 
+            android:id="@+id/classify_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10.0dip"/>
+        
+    </RelativeLayout>
+
+</LinearLayout>

@@ -7,7 +7,6 @@ import org.springframework.web.client.RestTemplate;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -20,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.yuhen.saleapp.R;
+import com.yuhen.saleapp.activity.BaseActivity;
 import com.yuhen.saleapp.domain.User;
 import com.yuhen.saleapp.shop.ShopDetailActivity;
 import com.yuhen.saleapp.util.HttpUtil;
@@ -27,35 +27,39 @@ import com.yuhen.saleapp.util.SecureUtil;
 import com.yuhen.saleapp.util.TipFlag;
 import com.yuhen.saleapp.util.Validator;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends BaseActivity {
 	
 	private UserRegisterTask mAuthTask = null;
 
 	private EditText mMobileView;
 	private EditText mPasswordView;
 	private EditText mComfirmPasswordView;
-	private EditText mShopNameView;
-	private EditText mAddressView;
 	
 	private View mProgressView;
 	private View mTlRegisterView;
-	private View mRegisterBackView;
-	private View mRegisterTitleView;
+//	private View mRegisterBackView;
+//	private View mRegisterTitleView;
+	
+	@Override
+	public void initView() {
+		super.initView();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		initView();
+		head_center_text.setText("注册");
+		head_right_text.setText("");
 		
 		mMobileView = (EditText) findViewById(R.id.et_mobile);
 		mPasswordView = (EditText) findViewById(R.id.et_password);
 		mComfirmPasswordView = (EditText) findViewById(R.id.et_comfirm_password);
-		mShopNameView = (EditText) findViewById(R.id.et_shop_name);
-		mAddressView = (EditText) findViewById(R.id.et_address);
 		mProgressView = findViewById(R.id.register_progress);
 		mTlRegisterView = findViewById(R.id.sv_register);
-		mRegisterBackView = findViewById(R.id.register_back);
-		mRegisterTitleView = findViewById(R.id.register_title);
+//		mRegisterBackView = findViewById(R.id.register_back);
+//		mRegisterTitleView = findViewById(R.id.register_title);
 		
 		Button btnRegister = (Button) findViewById(R.id.btn_register);
 		btnRegister.setOnClickListener(new OnClickListener() {
@@ -65,12 +69,6 @@ public class RegisterActivity extends Activity {
 			}
 		});
 		
-		mRegisterBackView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
 	}
 	
 	//注册
@@ -82,14 +80,10 @@ public class RegisterActivity extends Activity {
 		mMobileView.setError(null);
 		mPasswordView.setError(null);
 		mComfirmPasswordView.setError(null);
-		mShopNameView.setError(null);
-		mAddressView.setError(null);
 		
 		String mobile = mMobileView.getText().toString();
 		String password = mPasswordView.getText().toString();
 		String comfirmPassword = mComfirmPasswordView.getText().toString();
-		String shopName = mShopNameView.getText().toString();
-		String address = mAddressView.getText().toString();
 
 		boolean cancel = false;
 		View focusView = null;
@@ -119,14 +113,6 @@ public class RegisterActivity extends Activity {
 			mComfirmPasswordView.setError(getString(R.string.error_comfirm_password));
 			focusView = mComfirmPasswordView;
 			cancel = true;
-		}else if (TextUtils.isEmpty(shopName)) {
-			mShopNameView.setError(getString(R.string.error_field_required));
-			focusView = mShopNameView;
-			cancel = true;
-		}else if (TextUtils.isEmpty(address)) {
-			mAddressView.setError(getString(R.string.error_field_required));
-			focusView = mAddressView;
-			cancel = true;
 		}
 		
 		if (cancel) {
@@ -135,7 +121,7 @@ public class RegisterActivity extends Activity {
 		} else {
 			//显示进度条，并发送登录请求，准备登录
 			showProgress(true);
-			mAuthTask = new UserRegisterTask(mobile, SecureUtil.shaEncode(password), shopName, address);
+			mAuthTask = new UserRegisterTask(mobile, SecureUtil.shaEncode(password));
 			mAuthTask.execute((Void) null);
 		}
 	}
@@ -174,13 +160,13 @@ public class RegisterActivity extends Activity {
 									: View.GONE);
 						}
 					});
-			mRegisterTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
+//			mRegisterTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
 		} else {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
 			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
 			mTlRegisterView.setVisibility(show ? View.GONE : View.VISIBLE);
-			mRegisterTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
+//			mRegisterTitleView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
 	
@@ -191,16 +177,12 @@ public class RegisterActivity extends Activity {
 
 		private final String mMobile;
 		private final String mPassword;
-		private final String mShopName;
-		private final String mAddress;
 		
 		private String mTipInfo = "";
 
-		UserRegisterTask(String mobile, String password, String shopName, String address) {
+		UserRegisterTask(String mobile, String password) {
 			mMobile = mobile;
 			mPassword = password;
-			mShopName = shopName;
-			mAddress = address;
 		}
 
 		@Override
@@ -213,8 +195,6 @@ public class RegisterActivity extends Activity {
 			User user = new User();
 			user.setMobile(mMobile);
 			user.setPassword(mPassword);
-			user.setShop_name(mShopName);
-			user.setAddress(mAddress);
 			user.setUser_type("0");//卖家
 			// 发送登录请求
 			ResponseEntity<String> postForEntity = null;

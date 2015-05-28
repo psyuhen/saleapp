@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical" >
+
+    <include android:id="@+id/cust_goods_list_view1"
+        layout="@layout/custom_list_view"/>
+
+    <!-- 预览、连接、分享 -->
+    <include
+        android:id="@+id/view_share_preview_link1"
+        layout="@layout/view_share_preview_link" />
+
+</LinearLayout>

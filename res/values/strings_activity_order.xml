@@ -1,0 +1,7 @@
+<resources>
+    <string name="my_order">我的订单</string>
+    <string name="to_be_confirmed">待确认</string>
+    <string name="refund">退款中</string>
+    <string name="order_num_text">订单编号:</string>
+    <string name="order_person_text">收货人:</string>
+</resources>

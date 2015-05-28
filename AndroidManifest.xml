@@ -30,24 +30,47 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_main"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
             android:name="com.yuhen.saleapp.login.RegisterActivity"
-            android:label="@string/register" >
+            android:label="@string/register"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
             android:name="com.yuhen.saleapp.shop.ShopActivity"
-            android:label="@string/my_shop" >
+            android:label="@string/my_shop"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
             android:name="com.yuhen.saleapp.shop.ShopDetailActivity"
-            android:label="@string/shop_detail" >
+            android:label="@string/shop_detail"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.yuhen.saleapp.goods.GoodsActivity"
+            android:label="@string/my_goods"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.yuhen.saleapp.order.OrderActivity"
+            android:label="@string/my_order"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.yuhen.saleapp.sell.SellMgrActivity"
+            android:label="@string/sell_manager"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.yuhen.saleapp.chat.ChatActivity"
+            android:label="@string/my_chat"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
     </application>
 

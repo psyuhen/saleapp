@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -20,4 +20,70 @@
     <color name="white">#fff</color>
     <color name="red">#f00</color>
     <color name="black">#000</color>
+    <color name="head_bg">#5B9BD5</color>
+    <color name="transparent">#00000000</color>
+    <color name="cyan">#009ad6</color>
+    <color name="order_item_line">#ff272727</color>
+    <color name="gray">#fff2f2f2</color>
+    <color name="deepgray">#77787b</color>
+    <color name="shallowpink">#feeeed</color>
+
+    <style name="title_bar_style">
+        <item name="android:background">@color/head_bg</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/title_bar_height</item>
+    </style>
+
+    <style name="goods_item_title">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- 商品样式 -->
+    <style name="goods_item_sell_mount">
+        <item name="android:textSize">12.0dip</item>
+        <item name="android:textColor">@color/cyan</item>
+    </style>
+
+    <!-- 订单样式 -->
+    <style name="order_item_line">
+        <item name="android:background">@color/order_item_line</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0.5dip</item>
+    </style>
+
+    <style name="order_item_time_text">
+        <item name="android:textSize">12.0dip</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="order_item_text">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="order_item">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textColor">@color/cyan</item>
+    </style>
+    <!-- 销售管理 -->
+    <style name="sell_text">
+        <item name="android:textSize">18.0dip</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="sell_bottom_text">
+        <item name="android:textSize">12.0dip</item>
+        <item name="android:textColor">@color/deepgray</item>
+    </style>
+	
+    <!-- 聊天窗口 -->
+    <style name="chat_item_title">
+          <item name="android:textSize">16.0dip</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="chat_item_username_time">
+        <item name="android:textSize">14.0dip</item>
+        <item name="android:textColor">@color/deepgray</item>
+    </style>
 </resources>

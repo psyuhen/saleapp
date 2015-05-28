@@ -26,7 +26,9 @@ import android.widget.Toast;
 
 import com.yuhen.saleapp.R;
 import com.yuhen.saleapp.domain.Store;
+import com.yuhen.saleapp.domain.User;
 import com.yuhen.saleapp.login.LoginActivity;
+import com.yuhen.saleapp.session.SessionManager;
 import com.yuhen.saleapp.util.HttpUtil;
 import com.yuhen.saleapp.util.JsonUtil;
 import com.yuhen.saleapp.util.TipFlag;
@@ -46,11 +48,14 @@ public class ShopDetailActivity extends Activity {
 	
 	private ShopDetailTask detailTask;
 	private String storeId;
+	private SessionManager sessionManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_detail);
+		
+		sessionManager = new SessionManager(getApplicationContext());
 		
 		spinner = (Spinner)findViewById(R.id.s_shop_classify);
 		mShopNameView = (EditText) findViewById(R.id.et_shop_name);
@@ -181,8 +186,8 @@ public class ShopDetailActivity extends Activity {
 
 		@Override
 		protected Map<String,Object> doInBackground(Void... params) {
-			//根据分类类型查询分类
-			String url1 = HttpUtil.BASE_URL + "/classify/queryby.do?classify_type=0";
+			//根据分类类型查询分类,0为商家
+			String url1 = HttpUtil.BASE_URL + "/classify/querybytype.do?classify_type=0";
 			//查询商家信息
 			String url2 = HttpUtil.BASE_URL + "/store/querybyid.do?store_id="+ShopDetailActivity.this.storeId;
 			//更新商家信息
@@ -206,7 +211,9 @@ public class ShopDetailActivity extends Activity {
 					map.put("STORE_INFO", storeInfo);
 					map.put("CLASSIFY_LIST", list);
 				}else if("submit".equals(oper)){
+					User user = sessionManager.getUserDetails();
 					storeInfo = new Store();
+					storeInfo.setUser_id(user.getUser_id());
 					storeInfo.setClassify_id(Integer.parseInt(classify_id));
 					storeInfo.setAddress(address);
 					storeInfo.setName(shopName);

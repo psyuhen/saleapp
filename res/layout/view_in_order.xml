@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff4f4f4"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/total_order_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/order_confirm_rl"
+            android:layout_width="80.0dip"
+            android:layout_height="60.0dip"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="20.0dip"
+            android:background="#35aae7" >
+
+            <TextView
+                android:id="@+id/order_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="10.0dip"
+                android:text="0"
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/order_confirm_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/order_confirm"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="10.0dip"
+                android:text="@string/to_be_confirmed"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/order_refund_rl"
+            android:layout_width="80.0dip"
+            android:layout_height="60.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_margin="20.0dip"
+            android:background="#0cbeba" >
+
+            <TextView
+                android:id="@+id/order_refund"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="10.0dip"
+                android:text="0"
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/order_refund_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/order_refund"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="10.0dip"
+                android:text="@string/refund"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_in_order_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#FFDAFF7F" />
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/sell_mgr_main_head"
+        layout="@layout/main_head" />
+
+    <RelativeLayout
+        android:id="@+id/sell_bottom_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10.0dip"
+        android:background="@color/gray" >
+
+        <TextView
+            android:id="@+id/sell_bottom_info_text"
+            style="@style/sell_bottom_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10.0dip"
+            android:text="@string/order_bottom_info_text" />
+
+        <TextView
+            android:id="@+id/sell_bottom_website_text"
+            style="@style/sell_bottom_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sell_bottom_info_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4.0dip"
+            android:text="@string/sell_bottom_website_text" />
+    </RelativeLayout>
+
+</LinearLayout>

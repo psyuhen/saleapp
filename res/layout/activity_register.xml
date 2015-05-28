@@ -17,40 +17,9 @@
 
     <!-- 显示注册按钮和标题信息 -->
 
-    <RelativeLayout
-        android:id="@+id/register_title"
-        android:layout_width="fill_parent"
-        android:layout_height="48.0dip"
-        android:background="@drawable/bg" >
-
-        <TextView
-            android:id="@+id/register_back"
-            android:layout_width="wrap_content"
-            android:layout_height="35.0dip"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8.0dip"
-            android:gravity="center"
-            android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip"
-            android:text="@string/back"
-            android:textColor="#ffffffff"
-            android:textSize="14.0dip"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/register_center_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/register"
-            android:textColor="#ffffffff"
-            android:textSize="18.0dip"
-            android:textStyle="bold" />
-    </RelativeLayout>
+    <include
+        android:id="@+id/main_head"
+        layout="@layout/main_head" />
 
     <ScrollView
         android:id="@+id/sv_register"
@@ -60,81 +29,40 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10.0dip" >
+            android:orientation="vertical" >
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5.0dip" >
+            <EditText
+                android:id="@+id/et_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="36dip"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginTop="10dip"
+                android:layout_marginBottom="10dip"
+                android:textSize="12sp"
+                android:hint="@string/mobile"
+                android:inputType="number"
+                android:singleLine="true" />
 
-                <TextView
-                    android:id="@+id/tv_mobile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="@string/mobile" />
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="36dip"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginBottom="10dip"
+                android:textSize="12sp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:singleLine="true" />
 
-                <EditText
-                    android:id="@+id/et_mobile"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dip"  
-        			android:background="@drawable/bg_edittext" 
-                    android:hint="@string/mobile"
-                    android:inputType="number"
-                    android:singleLine="true" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5.0dip" >
-
-                <TextView
-                    android:id="@+id/tv_password"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="@string/password" />
-
-                <EditText
-                    android:id="@+id/et_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dip"  
-        			android:background="@drawable/bg_edittext" 
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:singleLine="true" />
-            </LinearLayout>
-            
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5.0dip" >
-
-                <TextView
-                    android:id="@+id/tv_comfirm_password"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="@string/password" />
-
-                <EditText
-                    android:id="@+id/et_comfirm_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dip"  
-        			android:background="@drawable/bg_edittext" 
-                    android:hint="@string/comfirm_password"
-                    android:inputType="textPassword"
-                    android:singleLine="true" />
-            </LinearLayout>
-
+            <EditText
+                android:id="@+id/et_comfirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="36dip"
+                android:background="@drawable/bg_edittext"
+                android:textSize="12sp"
+                android:hint="@string/comfirm_password"
+                android:inputType="textPassword"
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/btn_register"

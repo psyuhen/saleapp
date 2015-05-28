@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <ImageView style="@style/order_item_line" />
+
+    <RelativeLayout
+        android:id="@+id/time_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3.0dip"
+        android:paddingTop="3.0dip" >
+
+        <TextView
+            android:id="@+id/order_time"
+            style="@style/order_item_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.0dip" />
+
+        <TextView
+            android:id="@+id/order_status"
+            style="@style/order_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10.0dip"
+            android:text="进行中"
+            android:textColor="@color/red" />
+    </RelativeLayout>
+
+    <ImageView style="@style/order_item_line" />
+
+    <LinearLayout
+        android:id="@+id/detail_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="6.0dip"
+        android:paddingTop="6.0dip" >
+
+        <ImageView
+            android:id="@+id/order_image"
+            android:layout_width="70.0dip"
+            android:layout_height="60.0dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10.0dip" />
+
+        <RelativeLayout
+            android:id="@+id/in_order_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15.0dip" >
+
+            <TextView
+                android:id="@+id/order_number_text"
+                style="@style/order_item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_num_text" />
+
+            <TextView
+                android:id="@+id/order_number"
+                style="@style/order_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20.0dp"
+                android:layout_toRightOf="@+id/order_number_text"
+                android:maxLines="1"
+                android:paddingLeft="3.0dp" />
+
+            <TextView
+                android:id="@+id/order_person_text"
+                style="@style/order_item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/order_number_text"
+                android:layout_marginTop="5.0dip"
+                android:text="@string/order_person_text" />
+
+            <TextView
+                android:id="@+id/order_person"
+                style="@style/order_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/order_number_text"
+                android:layout_marginTop="5.0dip"
+                android:layout_toRightOf="@+id/order_person_text"
+                android:paddingLeft="16.0dp" />
+
+            <TextView
+                android:id="@+id/order_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/arrow"
+                android:paddingRight="5.0dip" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView style="@style/order_item_line" />
+
+</LinearLayout>
