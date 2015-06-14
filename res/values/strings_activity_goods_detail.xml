@@ -1,0 +1,11 @@
+<resources>
+    <string name="goods_detail">商品详情</string>
+    <string name="goods_price">商品价格</string>
+    <string name="add_goods">添加商品</string>
+    <string name="to_out_published">下架商品</string>
+    <string name="delete_goods">删除商品</string>
+    <string name="to_classify">分类至</string>
+    <string name="sm_recommend">店长推荐</string>
+    <string name="goods_label">标签</string>
+    <string name="free_shipping">包邮</string>
+</resources>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/order_all_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10.0dip" >
+
+        <TextView
+            android:id="@+id/order_all_text"
+            style="@style/sell_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/sell_order_text" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_chart"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_today"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/cyan"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/order_today_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/image_diveder_rl" >
+
+            <ImageView
+                android:id="@+id/order_today_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginTop="5.0dip"
+                android:background="@drawable/dot_default" />
+
+            <TextView
+                android:id="@+id/order_today_text"
+                style="@style/goods_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5.0dip"
+                android:layout_toRightOf="@+id/order_today_dot"
+                android:paddingTop="3.0dip"
+                android:text="@string/today" />
+
+            <TextView
+                android:id="@+id/order_today"
+                style="@style/goods_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10.0dip"
+                android:text="0" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/image_diveder_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true" >
+
+            <ImageView
+                android:id="@+id/divider_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5.0dip"
+                android:src="@drawable/goods_layout_divider" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/order_yesterday_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@+id/image_diveder_rl" >
+
+            <ImageView
+                android:id="@+id/order_yesterday_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginTop="5.0dip"
+                android:background="@drawable/dot_selected"
+                android:paddingBottom="12.0dip" />
+
+            <TextView
+                android:id="@+id/order_yesterday_text"
+                style="@style/goods_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5.0dip"
+                android:layout_toRightOf="@+id/order_yesterday_dot"
+                android:text="@string/yesterday"
+                android:textColor="@color/gray" />
+
+            <TextView
+                android:id="@+id/order_yesterday"
+                style="@style/goods_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10.0dip"
+                android:text="0"
+                android:textColor="@color/gray" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</merge>

@@ -72,6 +72,16 @@
             android:label="@string/my_chat"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
+        <activity
+            android:name="com.yuhen.saleapp.goods.GoodsDetailActivity"
+            android:label="@string/goods_detail"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.yuhen.saleapp.goods.ClassifyActivity"
+            android:label="@string/classify_selected"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,6 +1,11 @@
 <resources>
+    <string name="today">今天</string>
+    <string name="yesterday">昨天</string>
     <string name="sell_manager">销售管理</string>
     <string name="sell_order_text">成交订单</string>
+    <string name="everyday_money_text">每日金额</string>
+    <string name="everyday_client_text">每日顾客</string>
+    <string name="everyday_collect_text">每日收藏</string>
     <string name="order_bottom_info_text">如需导出每日订单，请在电脑端访问</string>
  	<string name="sell_bottom_website_text">http：//d.weidian.com</string>
 </resources>

@@ -3,10 +3,10 @@
  */
 package com.yuhen.saleapp.shop;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -28,24 +28,27 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yuhen.saleapp.R;
 import com.yuhen.saleapp.activity.BaseActivity;
 import com.yuhen.saleapp.domain.MerchInfo;
 import com.yuhen.saleapp.domain.Store;
 import com.yuhen.saleapp.domain.User;
+import com.yuhen.saleapp.goods.GoodsActivity;
+import com.yuhen.saleapp.goods.GoodsDetailActivity;
 import com.yuhen.saleapp.menu.ActionItem;
 import com.yuhen.saleapp.menu.TitlePopup;
 import com.yuhen.saleapp.menu.TitlePopup.OnItemOnClickListener;
 import com.yuhen.saleapp.session.SessionManager;
 import com.yuhen.saleapp.util.HttpUtil;
+import com.yuhen.saleapp.util.JsonUtil;
 import com.yuhen.saleapp.util.TipFlag;
 
 public class ShopActivity extends BaseActivity {
@@ -74,6 +77,9 @@ public class ShopActivity extends BaseActivity {
     private View mInStock;
     
     private SessionManager sessionManager;
+    private User user;
+    private View selectOne;
+    private View selectTwo;
     
 	/**
 	 * 右上角上下文菜单
@@ -94,6 +100,7 @@ public class ShopActivity extends BaseActivity {
 		head_right_text.setText("编辑");
 		
 		sessionManager = new SessionManager(getApplicationContext());
+		user  = sessionManager.getUserDetails();
 		
 		/**  商家信息    **/
 		mShopLogoView = findViewById(R.id.iv_shop_logo);
@@ -176,7 +183,13 @@ public class ShopActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				//TODO 显示商品详细信息
+				MerchListAdapter adapter = (MerchListAdapter)mListView.getAdapter();
+				MerchInfo item = adapter.getItem(position);
+				
+				Intent intent1 = new Intent(ShopActivity.this, GoodsDetailActivity.class);
+				intent1.putExtra("from", "shop_home");
+				intent1.putExtra("store_id", storeInfo.getStore_id());
+				startActivity(intent1);
 			}
 		});
 		
@@ -187,19 +200,28 @@ public class ShopActivity extends BaseActivity {
 		mSelling.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				View [] tvs = {mSelling,mOutPublished,mClassify};
+				clickEvent0(tvs, v);
+				selectOne = v;
+				queryMerch(getCondition(), getOrderBy());
 			}
 		});
 		mOutPublished.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				View [] tvs = {mSelling,mOutPublished,mClassify};
+				clickEvent0(tvs, v);
+				selectOne = v;
+				queryMerch(getCondition(), getOrderBy());
 			}
 		});
 		mClassify.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				View [] tvs = {mSelling,mOutPublished,mClassify};
+				clickEvent0(tvs, v);
+				selectOne = v;
+				queryMerch(getCondition(), getOrderBy());
 			}
 		});
 		
@@ -210,25 +232,106 @@ public class ShopActivity extends BaseActivity {
 		mAddTime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				View [] tvs = {mAddTime,mSellVolumn,mInStock};
+				clickEvent0(tvs, v);
+				selectTwo = v;
+				queryMerch(getCondition(), getOrderBy());
 			}
 		});
 		mSellVolumn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				View [] tvs = {mAddTime,mSellVolumn,mInStock};
+				clickEvent0(tvs, v);
+				selectTwo = v;
+				queryMerch(getCondition(), getOrderBy());
 			}
 		});
 		mInStock.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				View [] tvs = {mAddTime,mSellVolumn,mInStock};
+				clickEvent0(tvs, v);
+				selectTwo = v;
+				queryMerch(getCondition(), getOrderBy());
 			}
 		});
+		
+		/** 默认初始化赋值  **/
+		selectOne = mSelling;
+		selectTwo = mAddTime;
 		
 		/** 请求数据 **/
 		mShopInfoTask = new ShopInfoTask();
 		mShopInfoTask.execute((Void)null);
+	}
+	
+	protected String getOrderBy(){
+		if(selectTwo.getId() == mAddTime.getId()){
+			return " create_time desc";
+		}if(selectTwo.getId() == mSellVolumn.getId()){//TODO 销量还要查询订单表
+			return " create_time desc";
+		}if(selectTwo.getId() == mInStock.getId()){
+			return " in_stock desc";
+		}
+		
+		return "";
+	}
+	
+	
+	protected String getCondition(){
+		if(selectOne.getId() == mSelling.getId()){
+			return "0";
+		}if(selectOne.getId() == mOutPublished.getId()){
+			return "1";
+		}if(selectOne.getId() == mClassify.getId()){//TODO 分类的再看吧
+			return "";
+		}
+		
+		return "";
+	}
+	
+	protected void clickEvent0(View [] tvs,View v){
+		int redColor = getResources().getColor(R.color.red);
+		int grayColor = getResources().getColor(R.color.deepgray);
+		
+		for (View view : tvs) {
+			TextView tv = (TextView)view;
+			if(tv.getId() == v.getId()){
+				tv.setTextColor(redColor);
+			}else{
+				tv.setTextColor(grayColor);
+			}
+		}
+	}
+	
+	/**
+	 * 根据出售中、下架、Order by查询商品信息
+	 * @param outPublished
+	 * @param orderBy
+	 */
+	protected void queryMerch(String outPublished, String orderBy){
+		String url = HttpUtil.BASE_URL + "/merch/queryby.do";
+		MerchInfo merchInfo = new MerchInfo();
+		merchInfo.setUser_id(user.getUser_id());
+		merchInfo.setOut_published(outPublished);
+		merchInfo.setOrder_by_clause(orderBy);
+		
+		boolean success = false;
+		try {
+			String json = HttpUtil.getRequest(url, merchInfo);
+			List<MerchInfo> list = JsonUtil.parse2ListMerchInfo(json);
+			mListView.setAdapter(new MerchListAdapter(ShopActivity.this, list));//刷新ListView
+			success = true;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		
+		if(!success){
+			Toast.makeText(ShopActivity.this, "服务器响应异常,请稍后再试!", Toast.LENGTH_LONG).show();
+		}
 	}
 	
 	/**
@@ -259,8 +362,10 @@ public class ShopActivity extends BaseActivity {
 				startActivityForResult(intent, 100200);
 				break;
 			case R.string.edit_my_merch:
-				Toast.makeText(ShopActivity.this, "开始进行【人员定位】的操作\n可以弹出对话框,或者跳转等", 1).show();
-				//TODO 编辑商品信息
+				Intent intent1 = new Intent(ShopActivity.this, GoodsActivity.class);
+				intent1.putExtra("from", "shop_home");
+				intent1.putExtra("store_id", storeInfo.getStore_id());
+				startActivityForResult(intent1, 100201);
 				break;
 			default:
 				break;
@@ -296,8 +401,6 @@ public class ShopActivity extends BaseActivity {
 
 		@Override
 		protected Map<String,Object> doInBackground(Void... params) {
-			User user  = sessionManager.getUserDetails();
-			
 			//根据用户查询商家信息
 			String url1 = HttpUtil.BASE_URL + "/store/querybyuser.do?user_id="+user.getUser_id();
 			//查询商家收藏数

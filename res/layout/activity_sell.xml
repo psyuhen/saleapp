@@ -8,6 +8,18 @@
     <include
         android:id="@+id/sell_mgr_main_head"
         layout="@layout/main_head" />
+    
+    <include android:id="@+id/sell_order_chart"
+        layout="@layout/chart"/>
+    
+    <include android:id="@+id/everyday_money_chart"
+        layout="@layout/chart"/>
+    
+    <include android:id="@+id/everyday_client_chart"
+        layout="@layout/chart"/>
+    
+    <include android:id="@+id/everyday_collect_chart"
+        layout="@layout/chart"/>
 
     <RelativeLayout
         android:id="@+id/sell_bottom_rl"
