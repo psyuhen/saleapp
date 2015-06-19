@@ -59,10 +59,10 @@ public class SellMgrActivity extends BaseActivity {
 		int []titles = {R.string.sell_order_text,R.string.everyday_money_text,
 				R.string.everyday_client_text,R.string.everyday_collect_text};
 		for (int i = 0; i < chartView.length; i++) {
-			TextView textView = (TextView)chartView[i].findViewById(R.id.order_all_text);
+			TextView textView = (TextView)(chartView[i].findViewById(R.id.order_all_text));
 			textView.setText(titles[i]);
 			
-			LinearLayout chartLayout = (LinearLayout)chartView[i].findViewById(R.id.ll_chart);
+			LinearLayout chartLayout = (LinearLayout)(chartView[i].findViewById(R.id.ll_chart));
 			initChart(chartLayout);
 		}
 	}

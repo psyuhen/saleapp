@@ -2,6 +2,8 @@ package com.yuhen.saleapp.login;
 
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,12 +15,16 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 import com.yuhen.saleapp.MainActivity;
 import com.yuhen.saleapp.R;
 import com.yuhen.saleapp.activity.BaseActivity;
@@ -35,6 +41,7 @@ import com.yuhen.saleapp.util.Validator;
  * @author ps
  */
 public class LoginActivity extends BaseActivity{
+	public static final String TAG="LoginActivity";
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -49,6 +56,11 @@ public class LoginActivity extends BaseActivity{
 	private View mLoginMainHead;
 	
 	private SessionManager sessionManager;
+	
+	//使用QQ登录
+	public static Tencent mTencent;
+	public static String mAppid;
+	public static String mOpenId;
 
 	@Override
 	public void initView() {
@@ -77,6 +89,15 @@ public class LoginActivity extends BaseActivity{
 				attemptLogin();
 			}
 		});
+		
+		//使用QQ登录按钮事件
+		Button mQQLoginButton = (Button) findViewById(R.id.qq_sign_in_button);
+		mQQLoginButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				LoginQQ();
+			}
+		});
 
 		head_right_text.setOnClickListener(new OnClickListener() {
 			@Override
@@ -90,6 +111,20 @@ public class LoginActivity extends BaseActivity{
 		mLoginMainHead = findViewById(R.id.login_main_head);
 		mProgressView = findViewById(R.id.login_progress);
 	}
+	
+	//这里是调用QQ登录的关键代码
+    public void LoginQQ() {
+        //这里的APP_ID请换成你应用申请的APP_ID，我这里使用的是DEMO中官方提供的测试APP_ID 222222
+        mAppid = "1104500255";
+//        mAppid = "222222";
+        //第一个参数就是上面所说的申请的APPID，第二个是全局的Context上下文，这句话实现了调用QQ登录
+        mTencent = Tencent.createInstance(mAppid,LoginActivity.this);
+        /**通过这句代码，SDK实现了QQ的登录，这个方法有三个参数，第一个参数是context上下文，第二个参数SCOPO 是一个String类型的字符串，表示一些权限 
+        官方文档中的说明：应用需要获得哪些API的权限，由“，”分隔。例如：SCOPE = “get_user_info,add_t”；所有权限用“all”  
+        第三个参数，是一个事件监听器，IUiListener接口的实例，这里用的是该接口的实现类 */
+        mTencent.login(LoginActivity.this,"all", new BaseUiListener());
+             
+    }
 	
 	//重写该方法，该方法回调的方式来获取指定的Activity返回的结果
 	@Override
@@ -298,4 +333,24 @@ public class LoginActivity extends BaseActivity{
 			showProgress(false);
 		}
 	}
+	
+	/**当自定义的监听器实现IUiListener接口后，必须要实现接口的三个方法，
+     * onComplete  onCancel onError 
+     *分别表示第三方登录成功，取消 ，错误。*/
+    private class BaseUiListener implements IUiListener {
+        public void onCancel() {
+             
+        }
+        public void onComplete(Object response) {
+            Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_LONG).show();
+            try {
+                mOpenId = ((JSONObject) response).getString("openid");
+            } catch (JSONException e) {
+                Log.e(TAG, "转换JSON异常", e);
+            }
+        }
+ 
+        public void onError(UiError arg0) {
+        }           
+    }
 }

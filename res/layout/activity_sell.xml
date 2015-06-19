@@ -8,44 +8,60 @@
     <include
         android:id="@+id/sell_mgr_main_head"
         layout="@layout/main_head" />
-    
-    <include android:id="@+id/sell_order_chart"
-        layout="@layout/chart"/>
-    
-    <include android:id="@+id/everyday_money_chart"
-        layout="@layout/chart"/>
-    
-    <include android:id="@+id/everyday_client_chart"
-        layout="@layout/chart"/>
-    
-    <include android:id="@+id/everyday_collect_chart"
-        layout="@layout/chart"/>
 
-    <RelativeLayout
-        android:id="@+id/sell_bottom_rl"
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10.0dip"
-        android:background="@color/gray" >
+    <ScrollView
+        android:id="@+id/sv_sell_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/sell_bottom_info_text"
-            style="@style/sell_bottom_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10.0dip"
-            android:text="@string/order_bottom_info_text" />
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/sell_bottom_website_text"
-            style="@style/sell_bottom_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/sell_bottom_info_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="4.0dip"
-            android:text="@string/sell_bottom_website_text" />
-    </RelativeLayout>
+            <include
+                android:id="@+id/sell_order_chart"
+                layout="@layout/chart" />
+
+            <include
+                android:id="@+id/everyday_money_chart"
+                layout="@layout/chart" />
+
+            <include
+                android:id="@+id/everyday_client_chart"
+                layout="@layout/chart" />
+
+            <include
+                android:id="@+id/everyday_collect_chart"
+                layout="@layout/chart" />
+
+            <RelativeLayout
+                android:id="@+id/sell_bottom_rl"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10.0dip"
+                android:background="@color/gray" >
+
+                <TextView
+                    android:id="@+id/sell_bottom_info_text"
+                    style="@style/sell_bottom_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10.0dip"
+                    android:text="@string/order_bottom_info_text" />
+
+                <TextView
+                    android:id="@+id/sell_bottom_website_text"
+                    style="@style/sell_bottom_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sell_bottom_info_text"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4.0dip"
+                    android:text="@string/sell_bottom_website_text" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

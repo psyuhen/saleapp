@@ -12,6 +12,7 @@
     <string name="cancel">取消</string>
     
     <string name="login">登录</string>
+    <string name="qq_login">使用QQ登录</string>
     <string name="register">注册</string>
     <string name="submit">提交</string>
     <string name="sale_register">卖家注册</string>
